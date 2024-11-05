@@ -4,28 +4,19 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/useAuth";
 
-const useLogin = () => {
+const useLogout = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const { login: loginUser } = useAuth();
+  const { logout: logoutUser } = useAuth();
   const navigate = useNavigate();
 
-  const login = async ({
-    username,
-    password,
-  }: {
-    username: string;
-    password: string;
-  }) => {
+  const logout = async () => {
     setIsLoading(true);
 
     try {
-      const response = await axios.post("/api/auth/login", {
-        username,
-        password,
-      });
+      const response = await axios.post("/api/auth/logout");
 
       const data = await response.data;
-      loginUser(data.user);
+      logoutUser();
       toast.success(data.message);
       new Promise((resolve) => setTimeout(resolve, 2 * 1000));
       navigate("/");
@@ -39,8 +30,8 @@ const useLogin = () => {
 
   return {
     isLoading,
-    login,
+    logout,
   };
 };
 
-export default useLogin;
+export default useLogout;

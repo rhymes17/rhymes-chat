@@ -11,6 +11,9 @@ import {
 import Login from "./pages/Login.tsx";
 import Layout from "./components/Layout.tsx";
 import Signup from "./pages/Signup.tsx";
+import Chats from "./pages/Chats.tsx";
+import { AuthProvider } from "./context/useAuth.tsx";
+import PrivateRoute from "./components/PrivateRoute.tsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -18,13 +21,19 @@ const router = createBrowserRouter(
       <Route path="login" element={<Login />} />
       <Route path="signup" element={<Signup />} />
 
-      <Route path="/" element={<App />}></Route>
+      <Route path="/" element={<App />}>
+        <Route path="/" element={<PrivateRoute />}>
+          <Route path="/" element={<Chats />} />
+        </Route>
+      </Route>
     </Route>
   )
 );
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </StrictMode>
 );

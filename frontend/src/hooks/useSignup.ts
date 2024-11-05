@@ -2,11 +2,13 @@ import axios from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/useAuth";
 
 const useSignup = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const signup = async ({
     fullName,
@@ -45,6 +47,7 @@ const useSignup = () => {
       });
 
       const data = await response.data;
+      login(data.user);
       toast.success(data.message);
       new Promise((resolve) => setTimeout(resolve, 2 * 1000));
       navigate("/");

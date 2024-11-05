@@ -1,14 +1,22 @@
+import { CSSProperties } from "react";
 import { ThreeDots } from "react-loader-spinner";
 
 const Button = ({
   isLoading,
   onClick,
+  title,
+  style,
 }: {
   isLoading: boolean;
   onClick: () => void;
+  title: string | React.ReactNode;
+  style?: CSSProperties;
 }) => {
   return (
-    <div className="bg-secondary text-black font-medium h-12 rounded-md flex justify-center items-center">
+    <div
+      style={style}
+      className="bg-secondary text-black font-medium h-12 rounded-md flex justify-center items-center"
+    >
       {isLoading ? (
         <ThreeDots
           visible={true}
@@ -22,10 +30,10 @@ const Button = ({
         />
       ) : (
         <button
-          className="w-full h-full justify-center items-center"
+          className="w-full h-full flex justify-center items-center"
           onClick={onClick}
         >
-          Signup
+          {title}
         </button>
       )}
     </div>

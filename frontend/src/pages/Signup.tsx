@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoEyeOffSharp, IoEyeOutline } from "react-icons/io5";
 import Button from "../components/Button";
 import Input from "../components/Input";
 import useSignup from "../hooks/useSignup";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/useAuth";
 
 const Signup = () => {
   const [fullName, setFullName] = useState("");
@@ -15,7 +16,15 @@ const Signup = () => {
   const [isConfirmPasswordHidden, setIsConfirmPasswordHidden] = useState(true);
 
   const { isLoading, signup } = useSignup();
+
+  const { user } = useAuth();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  }, []);
 
   return (
     <div className="h-full w-full flex justify-center items-center">
@@ -98,6 +107,7 @@ const Signup = () => {
               confirmPassword,
             })
           }
+          title="Signup"
         />
 
         <div className="">
