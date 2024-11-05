@@ -5,7 +5,7 @@ import { RiLogoutBoxRLine } from "react-icons/ri";
 const Header = () => {
   const { isLoading, logout } = useLogout();
   return (
-    <div className="py-5 w-full flex justify-between sticky top-0 bg-[rgb(255,255,255)]">
+    <div className="py-5 w-[100%] px-3 flex justify-between sticky top-0 bg-[rgb(255,255,255)]">
       <div className="flex w-full justify-between items-center">
         <h1 className="text-xl font-medium tracking-wide ">RhymesChat</h1>
         <Button

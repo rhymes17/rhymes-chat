@@ -7,6 +7,8 @@ const Chats = () => {
         <h1 className="font-[450] text-[1.1rem]">Chats</h1>
         <BsThreeDots className="text-xl" />
       </div>
+
+      <div className=""></div>
     </div>
   );
 };

@@ -14,6 +14,7 @@ import Signup from "./pages/Signup.tsx";
 import Chats from "./pages/Chats.tsx";
 import { AuthProvider } from "./context/useAuth.tsx";
 import PrivateRoute from "./components/PrivateRoute.tsx";
+import Profile from "./pages/Profile.tsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -21,9 +22,10 @@ const router = createBrowserRouter(
       <Route path="login" element={<Login />} />
       <Route path="signup" element={<Signup />} />
 
-      <Route path="/" element={<App />}>
-        <Route path="/" element={<PrivateRoute />}>
+      <Route path="/" element={<PrivateRoute />}>
+        <Route path="/" element={<App />}>
           <Route path="/" element={<Chats />} />
+          <Route path="/profile" element={<Profile />} />
         </Route>
       </Route>
     </Route>
