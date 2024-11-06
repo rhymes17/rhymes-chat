@@ -15,6 +15,7 @@ import Chats from "./pages/Chats.tsx";
 import { AuthProvider } from "./context/useAuth.tsx";
 import PrivateRoute from "./components/PrivateRoute.tsx";
 import Profile from "./pages/Profile.tsx";
+import Conversation from "./pages/Conversation.tsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -27,6 +28,7 @@ const router = createBrowserRouter(
           <Route path="/" element={<Chats />} />
           <Route path="/profile" element={<Profile />} />
         </Route>
+        <Route path="/chats/:id" element={<Conversation />} />
       </Route>
     </Route>
   )
