@@ -37,7 +37,7 @@ const Login = () => {
           placeholder="Password"
           value={password}
           onInputChange={(e) => setPassword(e.target.value)}
-          rightIcon={
+          rightElement={
             isPasswordHidden ? (
               <IoEyeOutline
                 onClick={() => setIsPasswordHidden(!isPasswordHidden)}

@@ -58,7 +58,7 @@ const Signup = () => {
           placeholder="Password"
           value={password}
           onInputChange={(e) => setPassword(e.target.value)}
-          rightIcon={
+          rightElement={
             isPasswordHidden ? (
               <IoEyeOutline
                 onClick={() => setIsPasswordHidden(!isPasswordHidden)}
@@ -77,7 +77,7 @@ const Signup = () => {
           placeholder="Confirm Password"
           value={confirmPassword}
           onInputChange={(e) => setConfirmPassword(e.target.value)}
-          rightIcon={
+          rightElement={
             isConfirmPasswordHidden ? (
               <IoEyeOutline
                 onClick={() =>
