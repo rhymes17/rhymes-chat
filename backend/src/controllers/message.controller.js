@@ -74,3 +74,26 @@ export const getMessages = async (req, res) => {
     return res.status(500).json({ error: "Internal server error" });
   }
 };
+
+// @desc    Get messages
+// @route   GET /api/message/
+// @access  PRIVATE
+export const getMyConversation = async (req, res) => {
+  try {
+    const senderId = req.user._id;
+
+    const conversation = await Conversation.find({
+      participants: {
+        $all: [senderId],
+      },
+    })
+
+    res.status(200).json({
+      message: "Conversation fetched successfully",
+      data: conversation,
+    });
+  } catch (error) {
+    console.log("Could not send the message", error.message);
+    return res.status(500).json({ error: "Internal server error" });
+  }
+};
