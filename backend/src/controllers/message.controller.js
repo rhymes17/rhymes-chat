@@ -1,5 +1,6 @@
 import Conversation from "../models/conversation.model.js";
 import Message from "../models/message.model.js";
+import { getReceiverSocketId, io } from "../socket/socket.js";
 
 // @desc    Send a message
 // @route   POST /api/message/send/:id
@@ -35,6 +36,11 @@ export const sendMessage = async (req, res) => {
     conversation.messages.push(newMessage._id);
 
     await Promise.all([conversation.save(), newMessage.save()]);
+
+    const receiverSocketId = getReceiverSocketId(receiverId);
+    const senderSocketId = getReceiverSocketId(senderId);
+
+    io.to([receiverSocketId, senderSocketId]).emit("newMessage", newMessage);
 
     res
       .status(201)
@@ -86,7 +92,7 @@ export const getMyConversation = async (req, res) => {
       participants: {
         $all: [senderId],
       },
-    })
+    });
 
     res.status(200).json({
       message: "Conversation fetched successfully",
