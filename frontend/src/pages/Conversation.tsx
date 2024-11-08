@@ -8,21 +8,33 @@ import { ThreeDots } from "react-loader-spinner";
 import { useAuth } from "../context/useAuth";
 import Input from "../components/Input";
 import { FiSend } from "react-icons/fi";
+import { useSocket } from "../context/useSocket";
 
 const Conversation = () => {
   const [otherUser, setOtherUser] = useState<User | undefined>();
   const [isLoading, setIsLoading] = useState(false);
-  const [conversation, setConversation] = useState([]);
+  const [conversation, setConversation] = useState<Message[]>([]);
   const [message, setMessage] = useState("");
 
   const { id: otherUserId } = useParams();
   const { user } = useAuth();
   const navigate = useNavigate();
+  const { socket } = useSocket();
 
   if (!user) {
     navigate("/login");
     return;
   }
+
+  useEffect(() => {
+    if (socket) {
+      socket.on("newMessage", (newMessage: Message) => {
+        setConversation((prev) => [...prev, newMessage]);
+      });
+    }
+
+    return () => socket?.off("newMessage");
+  }, [socket]);
 
   const bottomRef = useRef<HTMLDivElement>(null);
 
@@ -75,7 +87,7 @@ const Conversation = () => {
         <div className="flex w-full gap-3 items-center">
           <LuChevronLeft
             className="text-xl cursor-pointer"
-            onClick={() => navigate('/')}
+            onClick={() => navigate("/")}
           />
           <h1 className="text-xl font-medium tracking-wide ">
             {otherUser ? otherUser.username : "User"}

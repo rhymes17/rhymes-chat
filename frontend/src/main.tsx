@@ -16,6 +16,7 @@ import { AuthProvider } from "./context/useAuth.tsx";
 import PrivateRoute from "./components/PrivateRoute.tsx";
 import Profile from "./pages/Profile.tsx";
 import Conversation from "./pages/Conversation.tsx";
+import { SocketProvider } from "./context/useSocket.tsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -35,9 +36,11 @@ const router = createBrowserRouter(
 );
 
 createRoot(document.getElementById("root")!).render(
-  <StrictMode>
+  // <StrictMode>
     <AuthProvider>
-      <RouterProvider router={router} />
+      <SocketProvider>
+        <RouterProvider router={router} />
+      </SocketProvider>
     </AuthProvider>
-  </StrictMode>
+  // </StrictMode>
 );
